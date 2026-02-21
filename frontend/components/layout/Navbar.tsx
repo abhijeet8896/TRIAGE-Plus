@@ -2,6 +2,8 @@
 
 import type { User } from "@/types";
 import type { View } from "@/app/page";
+import { useTheme } from "next-themes";
+import { useEffect, useState } from "react";
 
 interface NavbarProps {
     user: User;
@@ -11,6 +13,13 @@ interface NavbarProps {
 }
 
 export default function Navbar({ user, currentView, onLogout, navigateTo }: NavbarProps) {
+    const { theme, setTheme } = useTheme();
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     const initials = user.full_name
         .split(" ")
         .slice(0, 2)
@@ -28,12 +37,23 @@ export default function Navbar({ user, currentView, onLogout, navigateTo }: Navb
                 onClick={() => navigateTo("dashboard")}
                 style={{ background: "none", border: "none", cursor: "pointer", padding: 0 }}
             >
-                <div className="nav-logo-icon">⚕️</div>
-                <div>
-                    <div style={{ fontSize: "0.95rem", fontWeight: 800, color: "var(--text-primary)" }}>
-                        CDSS
+                <div
+                    className="nav-logo-icon"
+                    style={{
+                        background: "none",
+                        boxShadow: "none",
+                        width: 84,
+                        height: 84,
+                        marginRight: 8
+                    }}
+                >
+                    <img src="/logo.png" alt="TRIAGE+" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                </div>
+                <div style={{ textAlign: "left" }}>
+                    <div style={{ fontSize: "1.1rem", fontWeight: 800, color: "var(--text-primary)", letterSpacing: "0.02em" }}>
+                        TRIAGE<span style={{ color: "var(--accent-cyan)" }}>+</span>
                     </div>
-                    <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 500 }}>
+                    <div style={{ fontSize: "0.65rem", color: "var(--text-muted)", fontWeight: 500, letterSpacing: "0.05em", textTransform: "uppercase" }}>
                         Clinical Decision Support
                     </div>
                 </div>
@@ -87,6 +107,17 @@ export default function Navbar({ user, currentView, onLogout, navigateTo }: Navb
                 </div>
 
                 <div className="avatar">{initials}</div>
+
+                {mounted && (
+                    <button
+                        className="btn btn-ghost btn-sm"
+                        onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                        style={{ padding: "6px 10px", fontSize: "1.2rem", borderRadius: "var(--radius-full)" }}
+                        title="Toggle Theme"
+                    >
+                        {theme === 'dark' ? '☀️' : '🌙'}
+                    </button>
+                )}
 
                 <button className="btn btn-ghost btn-sm" onClick={onLogout}>
                     Sign out

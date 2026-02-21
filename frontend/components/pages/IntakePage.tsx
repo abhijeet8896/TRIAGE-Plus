@@ -318,29 +318,39 @@ export default function IntakePage({
                 </div>
 
                 {/* Step indicator */}
-                <div className="step-indicator" style={{ marginBottom: 32 }}>
+                <div className="step-indicator" style={{ marginBottom: 32, display: "flex", justifyContent: "space-between", position: "relative" }}>
                     {STEPS.map((s, i) => (
-                        <div key={i} className="step-item">
-                            <div>
-                                <div className={`step-dot ${i < step ? "completed" : i === step ? "active" : ""}`}>
-                                    {i < step ? "✓" : s.icon}
-                                </div>
-                                <div
-                                    style={{
-                                        fontSize: "0.67rem",
-                                        textAlign: "center",
-                                        marginTop: 4,
-                                        color: i === step ? "var(--accent-blue)" : "var(--text-muted)",
-                                        fontWeight: i === step ? 600 : 400,
-                                        whiteSpace: "nowrap",
-                                    }}
-                                >
-                                    {s.label}
-                                </div>
-                            </div>
+                        <div key={i} className="step-item" style={{ flex: 1, flexDirection: "column", position: "relative", alignItems: "center" }}>
                             {i < STEPS.length - 1 && (
-                                <div className={`step-line ${i < step ? "completed" : ""}`} />
+                                <div
+                                    className={`step-line ${i < step ? "completed" : ""}`}
+                                    style={{
+                                        position: "absolute",
+                                        top: 17,
+                                        left: "50%",
+                                        width: "100%",
+                                        zIndex: 0
+                                    }}
+                                />
                             )}
+                            <div
+                                className={`step-dot ${i < step ? "completed" : i === step ? "active" : ""}`}
+                                style={{ zIndex: 1, position: "relative", background: i === step ? undefined : "var(--bg-primary)" }}
+                            >
+                                {i < step ? "✓" : s.icon}
+                            </div>
+                            <div
+                                style={{
+                                    fontSize: "0.8rem",
+                                    textAlign: "center",
+                                    marginTop: 8,
+                                    color: i === step ? "var(--accent-blue)" : "var(--text-muted)",
+                                    fontWeight: i === step ? 600 : 500,
+                                    whiteSpace: "nowrap",
+                                }}
+                            >
+                                {s.label}
+                            </div>
                         </div>
                     ))}
                 </div>

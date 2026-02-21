@@ -64,10 +64,10 @@ const MOCK_CASES: Case[] = [
 ];
 
 const STATS = [
-    { label: "Active Cases", value: "4", icon: "📋", color: "var(--accent-blue)" },
-    { label: "Critical Today", value: "1", icon: "🚨", color: "var(--critical)" },
-    { label: "Escalated", value: "2", icon: "📡", color: "var(--high)" },
-    { label: "Resolved", value: "12", icon: "✅", color: "var(--low)" },
+    { label: "Active Cases", value: "4", color: "var(--accent-blue)" },
+    { label: "Critical Today", value: "1", color: "var(--critical)" },
+    { label: "Escalated", value: "2", color: "var(--high)" },
+    { label: "Resolved", value: "12", color: "var(--low)" },
 ];
 
 function RiskBadge({ level }: { level: string }) {
@@ -177,7 +177,7 @@ export default function DashboardPage({
                             >
                                 {user.full_name.split(" ")[0]}
                             </span>{" "}
-                            👋
+                            
                         </h1>
                         <p style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>
                             {user.role === "phw"
@@ -390,15 +390,8 @@ export default function DashboardPage({
 
                 {/* Quick tips */}
                 <div
-                    className="alert alert-info"
-                    style={{ marginTop: 24, fontSize: "0.85rem" }}
+                   
                 >
-                    <span style={{ fontSize: "1.1rem" }}>💡</span>
-                    <span>
-                        <strong>Quick tip:</strong> Click <em>New Patient Intake</em> to run the full hybrid
-                        AI + rule-engine risk assessment pipeline. Critical cases will trigger SBAR generation
-                        and specialist escalation.
-                    </span>
                 </div>
             </div>
         </div>
